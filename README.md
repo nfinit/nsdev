@@ -1,2 +1,2 @@
 # nsdev
-Public repository for the NFINIT Systems 
+This is the public repository for the NFINIT systems website sources
