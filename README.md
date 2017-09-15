@@ -20,7 +20,11 @@ This website is designed to be as simple as possible for compatibility and maint
 
 ## Completion goals
 Development of the CMS and AMS are on the following time table:
+
 **October 4:** CMS/AMS basic schema implemented, system summaries generated from CMS Sysbase, basic management/creation of articles in AMS
+
 **October 23:** System thumbnails in CMS Sysbase, user collections in CMS with basic management, user article collections
+
 **November 8:** OCD integration with CMS Sysbase, more detailed user collection data (hostnames, expansions, accessories, etc), basic user collection report generation
+
 **November 27:** Private article collections, individual system reports in CMS, benchmark data in CMS sysbase, user profile pages
