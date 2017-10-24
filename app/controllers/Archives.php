@@ -89,7 +89,7 @@ class Archives extends CI_Controller {
 	
 		if ($this->input->get('vendor') && $this->input->get('vendor') != '') {
 			if ($this->input->get('key') && $this->input->get('key') != '') {
-				$data['out'] = $this->nsocd->search('vendor:' . $this->input->get('vendor') . ' ' . $this->input->get('key'));
+				$data['out'] = $this->nsocd->search('vendor:"' . $this->input->get('vendor') . '" ' . $this->input->get('key'));
 			} else {
 				$data['out'] = $this->nsocd->systems($this->input->get('vendor'));
 				return $data;

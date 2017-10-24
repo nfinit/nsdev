@@ -86,14 +86,14 @@
 					$j = $i+1;
                                         $currentString .= $tokens[$i];
 
-					while (substr($tokens[$j],-1) != '"' && $j < count($tokens))
+					while ($j < count($tokens) && substr($tokens[$j],-1) != '"')
 					{
 						if (substr($tokens[$j-1],-1) == '"') break;
                                                 $currentString .= ' ' . $tokens[$j];
 						$j++;
 					}
 
-					if ($j < count($tokens) && substr($tokens[$j],-1) == '"') {
+					if ($j < count($tokens) && substr($tokens[$j],-1) == '"' && substr($tokens[$j-1],-1) != '"') {
 						$currentString .= ' ' . $tokens[$j];
 					} else {
 						//So we don't skip over a token that isn't supposed to be skipped
@@ -103,9 +103,9 @@
 					$currentString = substr($currentString, 1, -1);
 
 					if ($i == 0) {
-						$query .= "vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%'";
+						$query .= "(vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%')";
 					} else {
-						$query .= " OR vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%'";
+						$query .= " AND (vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%')";
 					}
 					
 					$flag = 0;
@@ -120,14 +120,14 @@
 					$j = $i+1;
 					$currentString .= substr($tokens[$i],7);
                                         
-					while (substr($tokens[$j],-1) != '"' && $j < count($tokens))
+					while ($j < count($tokens) && substr($tokens[$j],-1) != '"')
 					{
 						if (substr($tokens[$j-1],-1) == '"') break;
                                                 $currentString .= ' ' . $tokens[$j];
 						$j++;
 					}
 
-					if ($j < count($tokens) && substr($tokens[$j],-1) == '"') {
+					if ($j < count($tokens) && substr($tokens[$j],-1) == '"' && substr($tokens[$j-1],-1) != '"') {
 						$currentString .= ' ' . $tokens[$j];
 					} else {
 						//So we don't skip over a token that isn't supposed to be skipped
@@ -137,9 +137,9 @@
 					$currentString = substr($currentString, 1, -1);
 
 					if ($i == 0) {
-						$query .= "{$directive} LIKE '%{$currentString}%'";
+						$query .= "({$directive} LIKE '%{$currentString}%')";
 					} else {
-						$query .= " OR {$directive} LIKE '%{$currentString}%'";
+						$query .= " AND ({$directive} LIKE '%{$currentString}%')";
 					}
 
 					$flag = 0;
@@ -153,9 +153,9 @@
 				{
 					$currentString = substr($tokens[$i],7);	
 					if ($i == 0) {
-						$query .= "{$directive} LIKE '%{$currentString}%'";
+						$query .= "({$directive} LIKE '%{$currentString}%')";
 					} else {
-						$query .= " OR {$directive} LIKE '%{$currentString}%'";
+						$query .= " AND ({$directive} LIKE '%{$currentString}%')";
 					}
                                         
                                         $flag = 0;
@@ -170,9 +170,9 @@
 				{
 					$currentString = $tokens[$i];	
 					if ($i == 0) {
-						$query .= "vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%'";
+						$query .= "(vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%')";
 					} else {
-						$query .= " OR vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%'";
+						$query .= " AND (vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%')";
 					}
                                         
                                         $flag = 0;
