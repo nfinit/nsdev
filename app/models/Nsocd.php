@@ -86,6 +86,7 @@
 					$j = $i+1;
                                         $currentString .= $tokens[$i];
 
+					//Determine how many tokens are part of the quoted string and build the keyphrase
 					while ($j < count($tokens) && substr($tokens[$j],-1) != '"')
 					{
 						if (substr($tokens[$j-1],-1) == '"') break;
@@ -93,6 +94,7 @@
 						$j++;
 					}
 
+					//Append the last token onto the keyphrase if applicable
 					if ($j < count($tokens) && substr($tokens[$j],-1) == '"' && substr($tokens[$j-1],-1) != '"') {
 						$currentString .= ' ' . $tokens[$j];
 					} else {
@@ -100,8 +102,10 @@
 						$j--;
 					}
 
+					//Shave quotes off of the keyphrase
 					$currentString = substr($currentString, 1, -1);
 
+					//Build subquery and add to final string
 					if ($i == 0) {
 						$query .= "(vendor LIKE '%{$currentString}%' OR system LIKE '%{$currentString}%' OR config LIKE '%{$currentString}%' OR extras LIKE '%{$currentString}%')";
 					} else {
