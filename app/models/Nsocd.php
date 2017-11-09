@@ -13,6 +13,14 @@
 			return $query->result_array();
 		}	
 
+		/* Returns all unique systems present in the database */
+		public function countConfigs($vendor)
+		{
+			$query = $this->db->query('SELECT COUNT(system) FROM ocd WHERE vendor=' . $this->db->escape($vendor));
+			$ret = $query->row_array();
+			return $ret['COUNT(system)'];
+		}
+
 		/* Generates HTML options for drop-downs */
 		public function vendor_options()
 		{
@@ -20,7 +28,8 @@
 			$opts = '';
 			foreach ($vendors as $vendor)
 			{
-				$opts .= "<option value=\"" . $vendor['vendor'] . "\">" . $vendor['vendor'] . "</option>\n";
+				$configs = $this->countConfigs($vendor['vendor']);
+				$opts .= "<option value=\"" . $vendor['vendor'] . "\">" . $vendor['vendor'] . ' (' . $configs . ')' . "</option>\n";
 			}
 			return $opts;
 		}

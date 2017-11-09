@@ -16,7 +16,7 @@
 				?>
                         </select>
                 </span>
-                <span style="width:40%;"><label for="key">Keyphrase: </label><input type="text" name="key" style="width:60%;" value="<?php if (isset($last_key)) echo $last_key; ?>" align="left"></span>
+                <span style="width:40%;"><label for="key">Keyphrase: </label><input type="text" name="key" style="width:60%;" value="<?php if (isset($last_key)) echo $last_key; ?>"></span>
                 <span style="width:5%;"><input type="submit" name="search" value="Search"></span>
         </form>
 </div><hr>

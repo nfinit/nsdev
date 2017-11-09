@@ -5,9 +5,9 @@
 		foreach ($out as $idx=>$system)
 		{
 			if ($idx % 2 === 0) {	
-				echo('<tr class="tr_std_alt"><td>' . $system['vendor'] . ' ' . $system['system'] . '</td><td>' . $system['config'] . '</td><td>' . $system['extras'] . '</td><td>' . money_format('%.2n',$system['price']) . '</td><td>' . date("n/j/Y", strtotime($system['date'])) . '</td></tr>' . "\n");
+				echo('<tr class="tr_std_alt" align="center"><td>' . $system['vendor'] . ' ' . $system['system'] . '</td><td>' . $system['config'] . '</td><td>' . $system['extras'] . '</td><td>' . money_format('%.2n',$system['price']) . '</td><td>' . date("n/j/Y", strtotime($system['date'])) . '</td></tr>' . "\n");
 			} else {
-				echo('<tr><td>' . $system['vendor'] . ' ' . $system['system'] . '</td><td>' . $system['config'] . '</td><td>' . $system['extras'] . '</td><td>' . money_format('%.2n',$system['price']) . '</td><td>' . date("n/j/Y", strtotime($system['date'])) . '</td></tr>' . "\n");
+				echo('<tr align="center"><td>' . $system['vendor'] . ' ' . $system['system'] . '</td><td>' . $system['config'] . '</td><td>' . $system['extras'] . '</td><td>' . money_format('%.2n',$system['price']) . '</td><td>' . date("n/j/Y", strtotime($system['date'])) . '</td></tr>' . "\n");
 			}
 		}
 		echo('</table><hr>' . "\n");

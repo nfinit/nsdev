@@ -1,30 +1,23 @@
-# NFINIT systems development repository
+# NFINIT systems web source repository
 --------------------
 ## Introduction
-This repository contains the various scripts and other sources that power the [NFINIT systems website](http://nfinit.systems), particularly the OCD and CMS database engines.
+This repository contains the production code powe
+This repository hosts the production code powering the [NFINIT systems website](http://nfinit.systems) in its entirety.
 ## Features and goals
-NFINIT systems aims to not only save and provide raw information, but also practical tools for retrocomputing enthusiasts around the globe to help them better understand and effectively their collections, examples of these tools include:
-* The **OEM Configuration Database** (OCD) which saves configuration and pricing information for a variety of computer systems
-* The **Collection Management System** (CMS) which allows multiple users to itemize, manage and visualize collections of legacy and non-legacy computer systems
-* The **Article Management System** (AMS) which allows multiple users to create and share simple HTML articles
-
-In addition to these basic features, there are also a number of *stretch goals* including, but not limited to
-* Live graphing, plotting and other visualization of data contained within the CMS 
-* System comparison features in the OCD and CMS
+The ultimate goal of NFINIT systems is to serve as a repository of technical knowledge for both legacy systems and current projects. In order to better serve this goal, the site provides a number of resources and tools for any and all with an interest in learning more about the storied history of computing. These resources include:
+* The **Sysbase**, a database that aggegates general information and documentation on computer systems, integrating with a number of sub-projects including the standalone **OEM Configuration Database** (an aggregator of configuration/pricing data for computer systems in the US market) and a benchmark database that aggregates results from a number of different sources. Sysbase entries are user-submitted and moderated by the site administration. The Sysbase also includes an internal collection management system that allows users to add systems to their own "collections" and keep track of them.
+* The **Archives**, hosting articles, documentation and software of use to collectors and enthusiasts, divided into public and private sections.
+* The **Pages Portal**, providing user-written articles and project home pages in "plain" HTML and Markdown format
+* The **Legacy Portal**, a service designed to cater to systems from the dawn of the internet age by presenting content such as news, weather, site pages and files in a format accessible by early web browsers running on more anemic hardware.
+Some of these features may also be implemented in the future:
+* Live graphing, plotting and other visualization of data contained within the Sysbase and its subsystems
+* System comparison features in the Sysbase
 * Minimal, non-intrusive JavaScript options to make life easier
 * More advanced database querying system with saved searches
-
-As the site is always improving, this list will grow longer as time goes on.
 ## Technologies
-This website is designed to be as simple as possible for compatibility and maintainability reasons, and as such utilizes minimal applications of JavaScript on the client side and mostly relies on PHP (built on the [CodeIgniter framework](https://codeigniter.com/)) on the back-end, managing its databases through [MySQL](https://www.mysql.com/).
-
-## Completion goals
-Development of the CMS and AMS are on the following time table:
-
-**October 4:** CMS/AMS basic schema implemented, system summaries generated from CMS Sysbase, basic management/creation of articles in AMS
-
-**October 23:** System thumbnails in CMS Sysbase, user collections in CMS with basic management, user article collections
-
-**November 8:** OCD integration with CMS Sysbase, more detailed user collection data (hostnames, expansions, accessories, etc), basic user collection report generation
-
-**November 27:** Private article collections, individual system reports in CMS, benchmark data in CMS sysbase, user profile pages
+This website is designed to be as simple as possible for compatibility and maintainability reasons, and as such utilizes minimal applications of JavaScript on the client side and mostly relies on PHP (built on the [CodeIgniter framework](https://codeigniter.com/)) on the back-end, attached to simple SQL databases. The Legacy Portal also makes use of the excellent Python [Newspaper](https://github.com/codelucas/newspaper) library to convey news content in a more legacy-friendly format.
+## Updates
+**October 4, 2017**: Site redesign outlined, base technologies finalized, basic site structure completed
+**October 23, 2017**: Site framework fully rebuilt, asset re-organization, OCD functionality re-instated, OCD search algorithm improved
+**November 8, 2017**: Legacy Portal outlined and assets designed, testing done on Newspaper library, Pages Portal outlined (but pending on concrete implementation)
+**November 27, 2017**: Goals TBD
