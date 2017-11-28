@@ -34,4 +34,4 @@ This website is designed to be as simple as possible for compatibility and maint
 
 **November 8, 2017**: Legacy Portal outlined and assets designed, testing done on Newspaper library, Pages Portal outlined (but pending on concrete implementation)
 
-**November 27, 2017**: Goals TBD
+**November 27, 2017**: Legacy Portal news feed scraping implemented (barring plaintext article conversion), User Portal functionality restored, Pages Portal markdown editing system still in implementation phase 

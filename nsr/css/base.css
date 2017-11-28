@@ -245,9 +245,10 @@
 
 	.form_std_container {
 		vertical-align: middle;
-		border: 1px solid black;
 		margin: 0 auto;
-		width: 90%;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		width: 550px;
 	}
 
 	.form_std {

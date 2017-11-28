@@ -11,17 +11,19 @@
 		public function isAvailable($feature = '')
 		{
 			$feature = preg_replace("/[^A-Za-z0-9]/", '', $feature);
-			$query = "SELECT available FROM features WHERE name=?";
+			$query = "SELECT available FROM features WHERE id=?";
 			$result = $this->db->query($query, $feature);
-			$return = $result->row_array();
-			return $return['available'];
+			$result = $result->row_array();
+			$result = $result['available'];
+			if ($result > 0) return true;
+			return false;
 		}
 
 		/* Returns the "home" location of a feature, for building URLs */
 		public function getHome($feature = '')
 		{
 			$feature = preg_replace("/[^A-Za-z0-9]/", '', $feature);
-			$query = "SELECT home FROM features WHERE name=?";
+			$query = "SELECT home FROM features WHERE id=?";
 			$result = $this->db->query($query, $feature);
 			$return = $result->row_array();
 			return $return['home'];
@@ -32,10 +34,10 @@
 		{
 			$feature = preg_replace("/[^A-Za-z0-9]/", '', $feature);
 			if ($this->isAvailable($feature)) {
-				$query = "UPDATE features SET available=0 WHERE name=?";
+				$query = "UPDATE features SET available=0 WHERE id=?";
 				$this->db->query($query, $feature);
 			} else {
-				$query = "UPDATE features SET available=0 WHERE name=?";
+				$query = "UPDATE features SET available=0 WHERE id=?";
 				$this->db->query($query, $feature);
 			}			
 		}
