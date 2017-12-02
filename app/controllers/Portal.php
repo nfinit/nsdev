@@ -44,12 +44,32 @@ class Portal extends CI_Controller {
 
 	private function handle_create()
 	{
+		if (!$this->input->post('create')) return;
+		$status = array();
+
 		$user = $this->input->post('username');
+		if (empty($user)) array_push($status, 5);
+		if (!preg_match('/^[a-zA-Z0-9-_]+$/',$user)) {
+			array_push($status, 2);
+		}
+
+		$email = $this->input->post('email');
+		if (empty($email)) array_push($status, 6);
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) array_push($status, 4);
+
 		$password = $this->input->post('passphrase');
 		$confirm = $this->input->post('passphrase-confirm');
-		if ($password != $confirm) return false;
-		$email = $this->input->post('email');
-		if ($this->input->post('create')) $this->portal_engine->create($user, $password, $email);
+		if (empty($password)) array_push($status, 7);
+		if (empty($confirm)) array_push($status, 8);
+		if (strlen($password) > 50) array_push($status, 9);
+		if ($password != $confirm) array_push($status, 3);
+		
+		if (empty($status)) {
+			array_push($status, 0);
+			$this->portal_engine->create($user, $password, $email);
+		}
+
+		return $status;
 	}
 
 	private function user_page()
@@ -130,8 +150,9 @@ class Portal extends CI_Controller {
                 // BEGIN CONTENT // BEGIN CONTENT //
 		if ($this->features->isAvailable('portal')) {
 
-			$this->handle_create();
+			$data['status'] = $this->handle_create();
 			$this->load->view('static/portal/create');
+			if (!empty($data['status'])) $this->load->view('dynamic/portal/status', $data);
 			$this->load->view('forms/portal/create');
 
 		} else { $this->load->view('static/errors/unavailable'); }

@@ -13,9 +13,9 @@
 
 	<!-- /// To articles page /// -->	
 	<td class="nav-object">
-		<a href="<?php echo base_url(); ?>articles"
-		   title="Articles">
-			ARTICLES
+		<a href="<?php echo base_url(); ?>pages"
+		   title="Pages">
+			PAGES	
 		</a>
 		<span id="invisible"> |</span>
 	</td>
@@ -31,9 +31,9 @@
 
 	<!-- /// To SysBase portal /// -->
 	<td class="nav-object">
-		<a href="<?php echo base_url(); ?>sysbase"
-		   title="SysBase">
-			SYSBASE
+		<a href="<?php echo base_url(); ?>legacy"
+		   title="Legacy Portal">
+			LEGACY	
 		</a>
 		<span id="invisible"> |</span>
 	</td>
@@ -41,7 +41,7 @@
 	<!-- /// To user portal /// -->
 	<td class="nav-object">
 		<a href="<?php echo base_url(); ?>portal"
-		   title="User portal">
+		   title="User Portal">
 			PORTAL
 		</a>
 		<span id="invisible"> |</span>

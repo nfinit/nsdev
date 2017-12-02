@@ -28,10 +28,11 @@ class Legacy extends CI_Controller {
 		$this->load->view('dynamic/legacy/news/news', $data);
 		
 		//  END CONTENT  //  END CONTENT  //
+		$this->load->view('static/legacy/footer');
 		$this->load->view('modules/end-page');
 	}
 
-	public function news($src = '')
+	public function news($src = '', $cat = '')
 	{
 		$this->load->helper('url');
 		$this->load->view('modules/begin-page');
@@ -46,12 +47,25 @@ class Legacy extends CI_Controller {
 			$data['title'] = $this->newsfeeds->get_source($src);
 			$data['logo'] = $this->newsfeeds->get_logo($src);
 			$data['paths'] = $this->newsfeeds->get_paths($src);
-			$this->load->view('dynamic/legacy/news/feed-index', $data);
-		} else {
+			if (null !== $this->input->get('article')) {
+				$data['src'] = $src;
+				$data['cat'] = $cat;
+				$data['article'] = $this->input->get('article');
+				$this->load->view('dynamic/legacy/news/article-viewer', $data);
+			} else {
+				$this->load->view('dynamic/legacy/news/feed-index', $data);
+			}
+		} else if ($src == 'article') {
+			$this->load->view('dynamic/legacy/news/article-test');
 
+		} else {
+			$data['sources'] = $this->newsfeeds->source_overview(); 
+			$this->load->view('dynamic/legacy/news/news', $data);
 		}		
 	
 		//  END CONTENT  //  END CONTENT  //
+		$this->load->view('static/legacy/news-footer');
+		$this->load->view('static/legacy/footer');
 		$this->load->view('modules/end-page');
 	}
 }

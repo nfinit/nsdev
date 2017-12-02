@@ -19,7 +19,7 @@
 		public function get_paths($src)
 		{
 			$src = preg_replace("/[^A-Za-z0-9]/", '', $src);
-			$query = "SELECT path FROM newsfeeds WHERE arg=? ORDER BY siteorder ASC";
+			$query = "SELECT path,title FROM newsfeeds WHERE arg=? ORDER BY siteorder ASC";
 			$result = $this->db->query($query, $src);
 			$result = $result->result_array();
 			return $result;
