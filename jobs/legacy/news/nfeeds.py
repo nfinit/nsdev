@@ -6,6 +6,7 @@ import feedparser
 import codecs
 import newspaper
 import errno
+from unidecode import unidecode
 from newspaper import Article
 from HTMLParser import HTMLParser
 
@@ -27,7 +28,17 @@ c = db.cursor()
 BASE_URL = "http://nfinit.systems/legacy/news/"
 STORE_PATH = "/opt/bitnami/apache2/htdocs/nsr/store/legacy/news/"
 
+# Initialize some status variables
+sources_processed = 0
+feeds_processed = 0
+posts_processed = 0
+posts_archived = 0
+
 ### FUNCTION DEFINITIONS ###
+
+# Fix unicode quotes that don't display properly on older browsers
+def fix_unicode(html):
+	 return unidecode(html)
 
 # Sets up a path in /nsr/store if it doesn't already exist
 def store(path):
@@ -43,7 +54,7 @@ def store(path):
 
 # Archives an article at the specified path with newspaper using its URL
 def archive(url, source_url, path):
-	print("Archiving post at " + url + "...")
+	global posts_archived
 	link_url = BASE_URL + path + "/"
 	path = STORE_PATH + path + "/articles/"
 	if not os.path.isdir(path):
@@ -55,25 +66,29 @@ def archive(url, source_url, path):
 	filename = url.split('/?', 1)[0]
 	filename = filename.split('://', 1)[-1]
 	filename = filename.split(source_nosub)[-1]
+	filename = filename.split('?', 1)[0]
 	filename = filename.replace("/index.html", "")
 	filename = filename.replace("/","-")
-	filename = filename.replace('~', '')
+	filename = re.sub('[^a-zA-Z0-9-_]+', '', filename);
 	filename = filename.rstrip('-')
 	filename = filename.lstrip('-')
 	filename = filename + ".html"
 
 	#Check if the file already exists so we don't have to re-download it
 	if os.path.isfile(path + filename):
-		print("Post already archived! Exiting...")
+		print("Post at " + url + " has already been archived.")
 		return filename
+	else:
+		print("Archiving post at " + url + "...")
 
 	#Create the file
 	article = Article(url)
 	article.download()
 	article.parse()
 
-	html = "<h1 align=\"center\">" + article.title + "</h1>\n"
+	html = "<h1 align=\"center\">" + fix_unicode(article.title) + "</h1>\n"
 	body = article.text
+	body = fix_unicode(body)
 	body = body.replace('\n',"<br>")
 	html += body
 
@@ -81,34 +96,42 @@ def archive(url, source_url, path):
 	storefile.write(html)
 	storefile.close()
 
+	posts_archived += 1
+
 	return filename
 		
 # Generate a list item for a given RSS post
 def gen_post(post, source_url, path, describe, arc):
+	global posts_processed
 	h = HTMLParser()
 	html = "<li>"
 	if post.title:
-		if arc and post.link:
+		title = re.sub('<[^<]+?>', '', post.title)
+		if arc and hasattr(post, 'link') and post.link:
 			get = archive(post.link, source_url, path)
 			url = BASE_URL + path + "/?article=" + get
 			html += "<a href=\"" + url + "\">"
-		elif post.link:
-			html += "<a href=\"" + post.link + "\">"
-		html += "<strong>" + h.unescape(post.title) + "</strong>"
-		if post.link: html += "</a>"
+		html += "<strong>" + fix_unicode(h.unescape(title)) + "</strong>"
+		if arc and hasattr(post, 'link') and post.link: html += "</a>"
+		if hasattr(post, 'link') and post.link: html += ' ' + '<a href="' + post.link + '">(view source)</a>'
 		html += "\n"
 	if describe and hasattr(post, 'description'):
 		description = re.sub(r'<div.*>.*<\/div>', '', post.description, flags=re.S)
 		description = re.sub(r'<img.*?>', '', description, flags=re.S)
+		description = re.sub('<[^<]+?>', '', description)
 		description = h.unescape(description)
+		description = fix_unicode(description)
 		if description and post.title: html += "<br>"
-		if description: html += description 
+		if description: html += '<p>' + description + '</p>'
 	html += "</li>\n"
+	posts_processed += 1
 	if not post.title and not description: return ''
 	return html 
 
 # Generate a feed category index
 def gen_category(cat):
+	global feeds_processed
+	source = cat[0]
 	surl = cat[1]
 	title = cat[4]
 	url = cat[5]
@@ -116,40 +139,41 @@ def gen_category(cat):
 	desc = int(cat[8])
 	arc = int(cat[9])
 
-	print("Generating category...")
-	print("Source: " + surl)
-	print("Title: " + title)
-	print("URL: " + url)
-	print("Path: " + path)
-	print("Describe: " + str(cat[8]))
-	print("Archive: " + str(cat[9]))
+	print "Generating index: " + source + "/" + title,
+	if arc: print "(archived)",
+	print ""
 
 	store(path)
 	newsfile = codecs.open(STORE_PATH + path + "/index.html", "w", "utf-8")
 	feed = feedparser.parse(url)
 
-	html =  "<h2 align=\"center\">" + title + "</h2>\n"
-	if arc: html += "<p align=\"center\"><em>(Locally archived)</em></p>"
+	html =  "<h2 align=\"center\">" + title
+	if arc: html += " (locally archived)"
+	html += "</h2>"
 	html += "<div align=\"center\">\n"
-	html += "<table width=\"500px\"><tr><td>\n"
+	html += "<table width=\"550px\"><tr><td>\n"
 	html += "<ol>\n"
 	for post in feed.entries:
 		html += gen_post(post, surl, path, desc, arc)
 	html += "</ol>\n"
 	html += "</td></tr></table>\n"
 	html += "</div>\n"
-	html += "<hr width=\"500px\">\n"
+	html += "<hr width=\"550px\">\n"
 
 	newsfile.write(html)
 	newsfile.close()
 
+	feeds_processed += 1
+
 	return html
 
 def gen_feed(source):
+	global sources_processed	
 	c.execute("SELECT * FROM newsfeeds WHERE arg=%s ORDER BY siteorder ASC",source)
 	categories = c.fetchall()
 	for category in categories:
 		gen_category(category)
+	sources_processed += 1
 
 def gen_feeds():
 	c.execute("SELECT DISTINCT(arg) FROM newsfeeds")
@@ -159,3 +183,5 @@ def gen_feeds():
 
 ### MAIN PROGRAM ###
 gen_feeds()
+print("********************************************************************************")
+print("Complete. Processed " + str(posts_processed) + " posts (" + str(posts_archived) + " archived) from " + str(feeds_processed) + " feeds and " + str(sources_processed) + " sources.") 

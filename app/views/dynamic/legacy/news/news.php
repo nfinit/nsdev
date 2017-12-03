@@ -1,5 +1,6 @@
-<h2 align="center">News feeds</h2>
-<p align="center"><i>updated hourly</i></p>
+<p align="center"><font size="5"><strong>Hypertext news feeds</strong> (updated hourly)</font></p>
+<div align="center">
+<table width="550px" border="1" rules="none"><tr><td>
 <div align="center">
 <table width="500px">
 	<?php
@@ -19,9 +20,16 @@
 			}
 			$counter++;
 		}
-		if ($tr_closed == 0) $html .='</tr>' . "\n";
+		if ($tr_closed == 0)
+		{
+			for ($i = 0; $i <= $counter%4; $i++) {
+				$html .= "<td></td>\n";
+			}
+			$html .='</tr>' . "\n";
+		}
 		echo($html);
 	?>
 </table>
 </div>
-<hr width="500px">
+</td></tr></table>
+</div><br>

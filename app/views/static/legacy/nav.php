@@ -1,1 +1,1 @@
-<hr width="500px">
+<hr width="550px">

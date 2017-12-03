@@ -2,7 +2,7 @@
 	<title>NFINIT: Legacy</title>
 	<style>
 		html {font-family: Arial;}	
-		body {background-color: #FEFEFE;}
+		body {background-color: #FFFFFF;}
 	</style>
 </head>
-<body bgcolor="#FEFEFE">
+<body bgcolor="#FFFFFF">

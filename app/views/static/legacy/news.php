@@ -1,5 +1,5 @@
 <div align="center">
-	<table width="500px">
+	<table width="550px">
 		<tr align="center">
 			<td><img src="<?php echo base_url(); ?>nsr/img/legacy/logos/bbc.gif" alt="BBC News"></td>
 			<td><img src="<?php echo base_url(); ?>nsr/img/legacy/logos/cnn.gif" alt="CNN"></td>
@@ -8,4 +8,4 @@
 		</tr>
 	</table>
 </div>
-<hr width="500px">
+<hr width="550px">
