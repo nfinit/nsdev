@@ -1,8 +1,7 @@
-<p align="center"><font size="5"><strong>Hypertext news feeds</strong> (updated hourly)</font></p>
 <div align="center">
-<table width="550px" border="1" rules="none"><tr><td>
+<p><font size="5"><strong>Hypertext news feeds</strong> (updated hourly)</font></p>
 <div align="center">
-<table width="500px">
+<table width="550px">
 	<?php
 		$counter = 1;
 		$tr_closed = 0;
@@ -31,5 +30,4 @@
 	?>
 </table>
 </div>
-</td></tr></table>
 </div><br>

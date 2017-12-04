@@ -52,10 +52,13 @@
 			if ($password === '') return false;
 			if ($email === '') return false;
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
+			$password = password_hash($password, PASSWORD_DEFAULT);
 			$data = array(
 					'uid' => $user,
 					'passphrase' => $password,
-					'email' => $email
+					'name' => $user,
+					'email' => $email,
+					'level' => 0 
 				     );		
 			$this->db->insert('users', $data);
 		}

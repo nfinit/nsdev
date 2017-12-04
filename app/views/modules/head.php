@@ -1,5 +1,11 @@
 <head>
-	<title>NFINIT Systems</title>
+	<?php 
+		if (isset($pagetitle)) {
+			echo '<title>NFINIT: ' . $pagetitle . '</title>';
+		} else {
+			echo '<title>NFINIT systems</title>';
+		}
+	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>nsr/css/base.css" >
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>nsr/img/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url(); ?>nsr/img/appico/apple-57x57.png" />

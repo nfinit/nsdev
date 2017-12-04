@@ -8,9 +8,10 @@ class Info extends CI_Controller {
 	 */
 	public function index()
 	{
+		$data['pagetitle'] = 'Info';
 		$this->load->helper('url');
 		$this->load->view('modules/begin-page');
-		$this->load->view('modules/head');
+		$this->load->view('modules/head', $data);
 		$this->load->view('modules/navbar');
 		$this->load->view('modules/banner');
 		$this->load->view('modules/begin-content');

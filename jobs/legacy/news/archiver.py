@@ -86,10 +86,11 @@ def archive(url, source_url, path):
 	article.download()
 	article.parse()
 
-	html = "<h1 align=\"center\">" + fix_unicode(article.title) + "</h1>\n"
+	html = '<div align="center"><h1>' + fix_unicode(article.title) + '</h1></div>' + "\n"
 	body = article.text
 	body = fix_unicode(body)
 	body = body.replace('\n',"<br>")
+	body = re.sub('(<br\s*\/?>\n*){3,}', '<br><br>', body, flags=re.S)
 	html += body
 
 	storefile = codecs.open(path + filename, "w", "utf-8")
@@ -147,10 +148,10 @@ def gen_category(cat):
 	newsfile = codecs.open(STORE_PATH + path + "/index.html", "w", "utf-8")
 	feed = feedparser.parse(url)
 
-	html =  "<h2 align=\"center\">" + title
+	html = "<div align=\"center\">\n"
+	html +=  "<h2>" + title
 	if arc: html += " (locally archived)"
 	html += "</h2>"
-	html += "<div align=\"center\">\n"
 	html += "<table width=\"550px\"><tr><td>\n"
 	html += "<ol>\n"
 	for post in feed.entries:
@@ -158,7 +159,6 @@ def gen_category(cat):
 	html += "</ol>\n"
 	html += "</td></tr></table>\n"
 	html += "</div>\n"
-	html += "<hr width=\"550px\">\n"
 
 	newsfile.write(html)
 	newsfile.close()
