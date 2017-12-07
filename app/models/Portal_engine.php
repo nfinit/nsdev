@@ -15,6 +15,15 @@
 			return false;
 		}
 
+		private function userLevel($user)
+		{
+			$user = preg_replace("/^[^a-zA-Z0-9-_]+$/", '', $user);
+			$query = "SELECT level FROM users WHERE uid=?";
+			$result = $this->db->query($query, $user);
+			if ($result->num_rows() == 0) return 0;
+			$result = $result->row_array();
+			return $result['level'];	
+		}
 		private function verifyLogin($user, $password)
 		{
 			$validated = false;
@@ -34,6 +43,7 @@
 			if ($valid === false) return false;
 			$this->session->state = 'valid';
 			$this->session->uid = $user;
+			$this->session->level = $this->userLevel($user);
 			return $valid;
 		}
 

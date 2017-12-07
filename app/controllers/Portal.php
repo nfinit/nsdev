@@ -32,14 +32,13 @@ class Portal extends CI_Controller {
 	private function handle_actions()
 	{
 		$user = $this->session->uid;
+		if ($this->input->post('passphrase')) $passphrase = $this->input->post('passphrase');
 		if ($this->input->post('logout')) $this->portal_engine->logout($user);
-	}
-
-	private function handle_delete()
-	{
-		$user = $this->session->uid;
-		$password = $this->input->post('passphrase');
-		if ($this->input->post('delete')) $this->portal_engine->delete($user, $password);
+		if ($this->input->post('confirm-delete')) 
+		{
+			$this->portal_engine->logout($user);
+			$this->portal_engine->delete($user, $passphrase);
+		}
 	}
 
 	private function handle_create()
@@ -74,6 +73,7 @@ class Portal extends CI_Controller {
 
 	private function user_page()
 	{
+		$this->load->view('dynamic/portal/welcome');	
 		$this->load->view('forms/portal/actions');	
 	}
 
@@ -101,7 +101,11 @@ class Portal extends CI_Controller {
 			}
 
 			if ($this->session->uid && !$this->session->logout) {
-				$this->user_page();
+				if ($this->input->post('delete')) {
+					$this->load->view('forms/portal/delete');
+				} else {
+					$this->user_page();
+				}
 			} else {
 				$this->load->view('forms/portal/login');
 			}
@@ -112,33 +116,6 @@ class Portal extends CI_Controller {
 		$this->load->view('modules/footer');
 		$this->load->view('modules/end-page');
 	}
-
-	public function delete()
-	{
-		$this->load->helper('url');
-		$this->load->view('modules/begin-page');
-		$this->load->view('modules/head');
-		$this->load->view('modules/navbar');
-		$this->load->view('modules/banner');
-		$this->load->view('modules/begin-content');
-                // BEGIN CONTENT // BEGIN CONTENT //
-		if ($this->features->isAvailable('portal')) {
-
-			$this->load->view('static/portal/delete');
-
-			if ($this->session->uid && !$this->session->logout) {
-				$this->handle_delete();
-				$this->load->view('forms/portal/delete');
-			} else {
-				$this->load->view('static/portal/invalid');
-			}
-
-		} else { $this->load->view('static/errors/unavailable'); }
-                //  END CONTENT  //  END CONTENT  //
-		$this->load->view('modules/end-content');
-		$this->load->view('modules/footer');
-		$this->load->view('modules/end-page');
-        }
 
 	public function create()
 	{

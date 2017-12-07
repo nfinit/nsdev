@@ -51,6 +51,10 @@ class Archives extends CI_Controller {
 		// HANDLE INPUT  // HANDLE INPUT  //
 		$data = $this->ocd_handle_query($data);
                 // BEGIN CONTENT // BEGIN CONTENT //
+		$data['configs'] = $this->nsocd->countAllConfigs();
+		$data['systems'] = $this->nsocd->countSystems();
+		$data['vendors'] = $this->nsocd->countVendors();
+		$this->load->view('dynamic/archives/ocd/summary', $data);
 		$this->load->view('forms/archives/ocd/search', $data);
 		if (isset($data['out'])) {
 			$data['rescount'] = count($data['out']);

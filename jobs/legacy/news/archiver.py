@@ -68,6 +68,9 @@ def archive(url, source_url, path):
 	filename = filename.split(source_nosub)[-1]
 	filename = filename.split('?', 1)[0]
 	filename = filename.replace("/index.html", "")
+	filename = filename.replace(".html", "")
+	filename = filename.replace(".htm", "")
+	filename = filename.replace(".aspx", "")
 	filename = filename.replace("/","-")
 	filename = re.sub('[^a-zA-Z0-9-_]+', '', filename);
 	filename = filename.rstrip('-')
@@ -139,6 +142,8 @@ def gen_category(cat):
 	path = cat[6]
 	desc = int(cat[8])
 	arc = int(cat[9])
+	short = path.split("/")
+	short = short[-1]
 
 	print "Generating index: " + source + "/" + title,
 	if arc: print "(archived)",
@@ -149,7 +154,8 @@ def gen_category(cat):
 	feed = feedparser.parse(url)
 
 	html = "<div align=\"center\">\n"
-	html +=  "<h2>" + title
+	html += "<a name=\"" + short + "\"></a>"
+	html +=  "<h2>" + '<a href="#' + short + '">' + title + "</a>\n"
 	if arc: html += " (locally archived)"
 	html += "</h2>"
 	html += "<table width=\"550px\"><tr><td>\n"

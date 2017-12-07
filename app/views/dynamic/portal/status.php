@@ -14,7 +14,7 @@
 		switch ($code)
 		{
 			case 0:
-				$text = "Account creation successful.";
+				$text = 'Account creation successful. Click <a href="http://nfinit.systems/portal">here</a> to return to the login page.';
 				printHTML($text, 0);
 				break;
 			case 1:

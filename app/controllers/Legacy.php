@@ -7,6 +7,7 @@ class Legacy extends CI_Controller {
         {
                 parent::__construct();
                 $this->load->library('session');
+		$this->load->library('user_agent');
                 $this->load->model('features');
                 $this->load->model('newsfeeds');
         }
@@ -34,21 +35,36 @@ class Legacy extends CI_Controller {
 		$this->load->view('modules/end-page');
 	}
 
+	public function mobile()
+	{
+		$this->load->helper('url');
+		if ($this->session->mobile) 
+		{ 
+			$this->session->mobile = 0;
+		} else  {
+			$this->session->mobile = 1;
+		}
+		redirect($this->agent->referrer());
+	}
+
 	public function news($src = '', $cat = '')
 	{
+		if ($this->input->get('article')) $data['wide'] = 1;
 		$data['pagetitle'] = 'Hypertext News';
+		$src = strtolower($src);
+		$srcSupported = $this->newsfeeds->supported($src);
+		if ($srcSupported) $data['pagetitle'] = $this->newsfeeds->get_source($src);
 		$this->load->helper('url');
 		$this->load->view('modules/begin-page');
 		$this->load->view('static/legacy/head', $data);
-		$this->load->view('static/legacy/intro');
+		$this->load->view('static/legacy/intro', $data);
 		$this->load->view('static/legacy/nav');
 		// BEGIN CONTENT // BEGIN CONTENT //
 		if ($this->features->isAvailable('legacynews')) {	
-			$src = strtolower($src);
-			if ($this->newsfeeds->supported($src))
+			if ($srcSupported)
 			{
 				$data['src'] = $src;
-				$data['title'] = $this->newsfeeds->get_source($src);
+				$data['title'] = $data['pagetitle'];
 				$data['logo'] = $this->newsfeeds->get_logo($src);
 				$data['paths'] = $this->newsfeeds->get_paths($src);
 				if (null !== $this->input->get('article')) {
@@ -62,7 +78,7 @@ class Legacy extends CI_Controller {
 				$data['sources'] = $this->newsfeeds->source_overview(); 
 				$this->load->view('dynamic/legacy/news/news', $data);
 			}		
-			//  END CONTENT  //  END CONTENT  //
+		//  END CONTENT  //  END CONTENT  //
 			$this->load->view('static/legacy/news/news-footer');
 		} else {
 			$this->load->view('static/legacy/unavailable');

@@ -13,12 +13,36 @@
 			return $query->result_array();
 		}	
 
+		/* Returns the number of unique configurations in the database */
+		public function countAllConfigs()
+		{
+			$query = $this->db->query('SELECT COUNT(*) FROM ocd');
+			$ret = $query->row_array();
+			return $ret['COUNT(*)'];
+		}
+
 		/* Returns all unique systems present in the database */
 		public function countConfigs($vendor)
 		{
 			$query = $this->db->query('SELECT COUNT(system) FROM ocd WHERE vendor=' . $this->db->escape($vendor));
 			$ret = $query->row_array();
 			return $ret['COUNT(system)'];
+		}
+
+		/* Returns the number of unique systems in the database */
+		public function countSystems()
+		{
+			$query = $this->db->query('SELECT COUNT(DISTINCT vendor, system) FROM ocd');
+			$ret = $query->row_array();
+			return $ret['COUNT(DISTINCT vendor, system)'];
+		}
+
+		/* Returns the number of unique vendors in the database */
+		public function countVendors()
+		{
+			$query = $this->db->query('SELECT COUNT(DISTINCT(vendor)) FROM ocd');
+			$ret = $query->row_array();
+			return $ret['COUNT(DISTINCT(vendor))'];
 		}
 
 		/* Generates HTML options for drop-downs */

@@ -1,4 +1,3 @@
-<h2 align="center">Database search</h2>
 <div class="form_std_container" align="center">
         <form method="GET" align="center" class="form_std"><fieldset>
 			<label for="key"><strong>Keyphrase: </strong></label><input type="text" name="key" size="40" value="<?php if (isset($last_key)) echo $last_key; ?>">
