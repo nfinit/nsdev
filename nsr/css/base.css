@@ -57,16 +57,22 @@
 	Style IDs
 	========================================================================== */
 
+	/* General styling
+	========================================================================== */
+
+	#frame {
+		background-color: #000000;
+		background-color: var(--utils-fill);
+		border: 2px solid black;
+		padding: 0px 0px 0px 0px;
+	}
+
 	/* Navbar styling (using table formatting)
 	========================================================================== */
    
 	/* Footer style */
    
 	#footer {
-		border-right: 2px solid black;
-		border-left: 2px solid black;
-		border-bottom: 2px solid black;
-		border-collapse: collapse;
 		background-color: #000000;
 		background-color: var(--utils-fill);
 		font-size: 12px;
@@ -74,6 +80,7 @@
 		width: 100%;
 		color: #FFFFFF;
 		color: var(--utils-text-color);
+		border: none;
 	}
 	
 	#footer tr {
@@ -93,9 +100,6 @@
 	/* Navbar (header) style */
 	
 	#navbar {
-		border-top: 2px solid black;
-		border-right: 2px solid black;
-		border-left: 2px solid black;
 		text-align: center;
 		font-size: 12px;
 		font-size: calc(5px + 0.8vw);
@@ -103,6 +107,11 @@
 		width: 100%;
 		color: #FFFFFF;
 		color: var(--utils-text-color);
+		background-color: #000000;
+		background-color: var(--utils-fill);
+		margin: 0px 0px;
+		padding: 0px 0px;
+		border: none;
 	}
 
 	#navbar td {
@@ -129,10 +138,6 @@
 	/* Banners are saved in GIF format at a resolution of 3840x384 for ultrawide displays */
 
 	#banner { 
-		border-top: none;
-		border-bottom: none;
-		border-right: 2px solid black;
-		border-left: 2px solid black;
 		background-image: url("img/banner.gif");
 		background-color: #FFFFFF;
 		background-color: var(--body-fill);
@@ -140,29 +145,14 @@
 		height: 384px;
 		line-height: 384px;
 		text-align: center;
-	}
-
-	#banner-alt {
-		border-top: none;
-		border-bottom: none;
-		border-right: 2px solid black;
-		border-left: 2px solid black;
-		background-image: url("img/banner-alt.gif");
-		background-color: #FFFFFF;
-		background-color: var(--body-fill);
-		background-position: left; 
-		height: 384px;
-		line-height: 384px;
-		text-align: center;
-	}
-
-	#banner-title {
-		display: inline-block;
-		color: #FFFFFF;
-		text-align: center;
+		color: white;
 		vertical-align: middle;
 		font-size: 48px;
 		font-size: 10vw;
+	}
+
+	#banner hr {
+		display: none;
 	}
 
 	/* Utility rules
@@ -170,7 +160,7 @@
 
 	/* For elements that should only be displayed when the stylesheet is turned off */
 	
-	#invisible {
+	.invisible {
 		display: none;
 	}
 
@@ -187,10 +177,6 @@
 	}
 
 	.page-body {
-		border-top: none;
-		border-bottom: none;
-		border-right: 2px solid black;
-		border-left: 2px solid black;
 		padding: 1% 1%;
 		background-color: #FFFFFF;
 		background-color: var(--body-fill);

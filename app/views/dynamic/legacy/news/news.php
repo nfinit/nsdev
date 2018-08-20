@@ -1,5 +1,5 @@
 <div align="center">
-<p><font size="5"><strong>Hypertext news feeds</strong> (updated hourly)</font></p>
+<p><font size="5"><strong>Hypertext news feeds</strong> (updated hourly)</font></p><br>
 <div align="center">
 <table width="550px">
 	<?php
@@ -11,7 +11,7 @@
 			$tr_closed = 0;
 			if ($source['arg'] == '') continue;
 			if ($counter%4 == 1) $html .= '<tr align="center">' . "\n";
-			$html .= '<td><a href="' . base_url() . 'legacy/news/' . $source['arg'] . '"><img src="' . base_url() . 'nsr/img/legacy/logos/' . $source['logo'] . '" alt="' . $source['source'] . '" width="100px" /></td>' . "\n";
+			$html .= '<td><a href="' . base_url() . 'legacy/news/' . $source['arg'] . '"><img src="' . base_url() . 'nsr/img/legacy/logos/' . $source['logo'] . '" alt="[' . $source['source'] . ']" width="100px" /></td>' . "\n";
 			if ($counter%4 == 0)
 			{
 				$html .= '</tr>' . "\n";

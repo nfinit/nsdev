@@ -13,4 +13,4 @@
 	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo base_url(); ?>nsr/img/appico/apple-114x114.png" />
 	<link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url(); ?>nsr/img/appico/apple-144x144.png" />
 </head>
-<body>
+<body><div id="frame">

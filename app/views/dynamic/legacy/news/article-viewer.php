@@ -11,6 +11,6 @@
 	} else {
 		$html .= '<div align="center"><table width="550px"><tr><td><div align="center"><p><i>This content does not exist or is currently unavailable.</i></p></div></td></tr></table></div>';
 	}
-	$html .= '<div align="center"><h2><strong><a href="' . base_url() . 'legacy/news/' . $src . '">Back to ' . $title . '</a></strong></h2></div>';
+	$html .= '<div align="center"><h2><strong><a href="' . base_url() . 'legacy/news/' . $src . '#' . $cat . '">Back to ' . $title . '</a></strong></h2></div>';
 	echo $html;
 ?>

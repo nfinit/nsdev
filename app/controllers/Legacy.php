@@ -86,5 +86,20 @@ class Legacy extends CI_Controller {
 		$this->load->view('static/legacy/footer');
 		$this->load->view('modules/end-page');
 	}
+
+	public function js()
+	{
+		$this->load->helper('url');
+		$this->load->view('modules/begin-page');
+		$this->load->view('static/legacy/head');
+		$this->load->view('static/legacy/intro');
+		$this->load->view('static/legacy/nav');
+		// BEGIN CONTENT // BEGIN CONTENT //
+		$this->load->view('static/legacy/js');
+		//  END CONTENT  //  END CONTENT  //
+		$this->load->view('static/legacy/footer');
+		$this->load->view('modules/end-page');
+	}
+
 }
 ?>

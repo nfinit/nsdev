@@ -1,6 +1,19 @@
 <br>
 <div align="center">
+<a name="home"></a>
 <?php echo '<a href="' . base_url() . 'legacy/news/' . $src . '">' . '<img src="' . base_url() . 'nsr/img/legacy/logos/' . $logo . '" alt="' . $title . '" title="' . $title . '" /></a>'; ?>
+<br>
+</div>
+<div align="center">
+	<table width="550px"><tr><td>
+	<?php
+		$target = FCPATH . 'nsr/store/legacy/news/' . $src . '/index.html';
+		if (file_exists($target)) {
+			$html = file_get_contents($target);
+			echo $html;
+		}	
+	?>
+	</td></tr></table>
 </div>
 <?php
 	foreach ($paths as $path)
