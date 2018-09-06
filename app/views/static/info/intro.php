@@ -1,2 +1,4 @@
 <h1 align="center">INFO</h1><hr>
-<p align="center">Site information is currently unavailable, please check back later.</p>
+<h2 align="center">About NFINIT systems</h2>
+<p align="center"><strong>NFINIT systems</strong> is chiefly a preservation effort, with the ultimate goal of serving as a useful knowledge base for any kinds of technologies and disciplines that particularly interest its contributors, ranging from our primary retrocomputing focus to modern computing topics such as reverse engineering, or even completely new topics like history, architecture or geopolitics.</p>
+<p align="center">In our pursuit of that preservation, we also develop tools make it possible or simply more worthwhile, such as legacy-focused content delivery services or remote productivity systems to bring bygone technologies back into the realm of practicality, or useful applications to add more purpose or appreciation to what may otherwise be a museum piece.</p>

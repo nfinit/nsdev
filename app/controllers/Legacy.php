@@ -38,11 +38,31 @@ class Legacy extends CI_Controller {
 	public function mobile()
 	{
 		$this->load->helper('url');
+		if ($this->session->wide)
+		{
+			$this->session->wide = 0;
+		}
 		if ($this->session->mobile) 
 		{ 
 			$this->session->mobile = 0;
 		} else  {
 			$this->session->mobile = 1;
+		}
+		redirect($this->agent->referrer());
+	}
+	
+	public function wide()
+	{
+		$this->load->helper('url');
+		if ($this->session->mobile)
+		{
+			$this->session->mobile = 0;
+		}
+		if ($this->session->wide) 
+		{ 
+			$this->session->wide = 0;
+		} else  {
+			$this->session->wide = 1;
 		}
 		redirect($this->agent->referrer());
 	}
@@ -71,6 +91,9 @@ class Legacy extends CI_Controller {
 					$data['cat'] = $cat;
 					$data['article'] = $this->input->get('article');
 					$this->load->view('dynamic/legacy/news/article-viewer', $data);
+				} else if ('' !== $cat) {
+					$data['cat'] = $cat;
+					$this->load->view('dynamic/legacy/news/category-index', $data);
 				} else {
 					$this->load->view('dynamic/legacy/news/feed-index', $data);
 				}

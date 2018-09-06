@@ -18,7 +18,7 @@
 		a img { border: 0; }
 		a:hover img {border: 0; }
 		a:visited img {border: 0; }
-		<?php if ($this->session->mobile === 1) echo 'table { width: 80%; max-width: 1100px; font-size: 125%; }'; ?>
+		<?php if ($this->session->wide + $this->session->mobile > 0 ) echo 'table { width: 80%; max-width: 1100px; font-size: 125%; }'; ?>
 		//-->
 	</style>
 </head>

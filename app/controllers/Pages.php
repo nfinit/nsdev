@@ -56,6 +56,7 @@ class Pages extends CI_Controller
 		$this->load->view('modules/begin-content');
 		// BEGIN CONTENT // BEGIN CONTENT //
 		$this->load->view('static/pages/intro');
+		$this->load->view('static/messages/construction');
 		$this->load->view('dynamic/pages/index', $data);
                 //  END CONTENT  //  END CONTENT  //
 		$this->load->view('modules/end-content');

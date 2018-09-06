@@ -17,6 +17,7 @@ class Info extends CI_Controller {
 		$this->load->view('modules/begin-content');
                 // BEGIN CONTENT // BEGIN CONTENT //
 		$this->load->view('static/info/intro');
+		$this->load->view('dynamic/info/team');
                 //  END CONTENT  //  END CONTENT  //
 		$this->load->view('modules/end-content');
 		$this->load->view('modules/footer');

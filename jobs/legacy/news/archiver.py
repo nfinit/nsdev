@@ -27,7 +27,7 @@ c = db.cursor()
 
 # Set up some useful constants
 BASE_URL = "http://nfinit.systems/legacy/news/"
-STORE_PATH = "/opt/bitnami/apache2/htdocs/nsr/store/legacy/news/"
+STORE_PATH = "/var/www/html/nsr/store/legacy/news/"
 
 # Initialize some status variables
 sources_processed = 0
