@@ -9,12 +9,12 @@
 <hr>
 
 <?php
-	$basedir='/opt/bitnami/apache2/htdocs/nsr/img/sysico/';
+	$basedir='/var/www/html/nsr/img/sysico/';
 	$baselist=scandir($basedir);
 	$folders=array_slice($baselist,2);
 	foreach ($folders as $folder)
 	{
-		if ($folder === 'index.php') continue;
+		if (!is_dir($folder)) continue;
 		$baseimgs = scandir($basedir . $folder . '/');
 		$imgs = array_slice($baseimgs, 2);
 		echo('<h1>' . $folder . '</h1>' . "\n");
