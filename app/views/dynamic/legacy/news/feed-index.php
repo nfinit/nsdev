@@ -8,7 +8,7 @@
 	<table width="550px"><tr><td>
 	<?php
 		$target = FCPATH . 'nsr/store/legacy/news/' . $src . '/index.html';
-		if (file_exists($target) && $this->session->mobile === 0) {
+		if (file_exists($target) && !$this->session->mobile) {
 			$html = file_get_contents($target);
 			$html .= '</td></tr></table></div>';
 			echo $html;
