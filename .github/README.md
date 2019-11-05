@@ -3,7 +3,6 @@
 
 ## Introduction
 
-This repository contains the production code powe
 This repository hosts the production code powering the [NFINIT systems website](http://nfinit.systems) in its entirety.
 
 ## Features and goals
